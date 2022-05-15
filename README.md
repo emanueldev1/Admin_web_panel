@@ -38,7 +38,7 @@ first configure settings.json
 ## Put script in resources folder and run it 
 
 add in your server.cfg file:
-```
+```cfg
 start Admin_web_panel
 restart Admin_web_panel
 
