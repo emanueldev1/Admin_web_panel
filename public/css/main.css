@@ -1,0 +1,91 @@
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+
+::-webkit-scrollbar-button:increment,
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #1a1a1a;
+    border-radius: 20px;
+    border: 2px solid #f1f2f300;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #ccc;
+    border-radius: 13px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #000000;
+}
+
+/*
+  * Fin de estilos de scroll
+  * Usando motor webkit
+  * chrome opera safari ...
+  * 		  FIN
+  */
+
+
+.loadingsc {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(52, 52, 52);
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*centrar los divs */
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    transition: all 0.5s;
+    z-index: 9999;
+}
+
+.preloader {
+    width: 70px;
+    height: 70px;
+    border: 5px solid #eee;
+    border-top: 5px solid rgba(102, 102, 102, 0);
+    border-radius: 50%;
+    animation-name: girar;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+}
+
+@keyframes girar {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.content {
+    padding-top: 60px;
+    background-color: rgb(50, 50, 50);
+    color: #fff;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}

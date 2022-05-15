@@ -1,20 +1,3 @@
-# Admin_web_panel
- Admin web panel for fivem Servers ESX
-
-
-# INSTALLATION
-
-## Requirements
-> **FiveM**
-> **ESX**
-> **NodeJS** (**FIVEM PREINSTALLED**)
-> **MySQL**
-
-## Configure your server
-
-first configure settings.json
-
-```json
 {
     "website": {
         "support": "https://discord.gg", // Discord server
@@ -31,12 +14,3 @@ first configure settings.json
     "esx_groups": ["superadmin", "admin", "user"] // List of groups for esx
     
 }
-
-```
-
-
-## Put script in resources folder and run it 
-
-then enter your domain and configure the panel with the requested data and restart the server the script
-you will get an error that a table is not found but don't worry as the script inserts it automatically
-and if you like you can restart the script again

@@ -1,0 +1,151 @@
+<%- include('header'); -%>
+
+
+<style>
+
+.playerinfo {
+    /* display: flex; */
+    padding: 3%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 13px;
+    margin-right: 13px;
+    
+    background-color: rgb(63, 63, 63);
+    border-radius: 9px;
+    min-width: 85%;
+    min-height: 100%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+span.cont {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(43, 43, 43);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+    overflow:hidden;
+    white-space:nowrap;
+    padding-left: 9px;
+}
+
+span.cont:hover {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(57, 57, 57);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+input {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(43, 43, 43);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+
+}
+
+input:hover {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(49, 49, 49);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+
+}
+
+select {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(43, 43, 43);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+
+}
+
+select:hover {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(51, 51, 51);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+
+}
+
+</style>
+
+<div class="content">
+
+    <% if(error !== false) { %>
+        
+        
+
+        <h1>Error</h1>
+        <p>
+            <%= error %>
+        </p>
+
+    <% } else { %>
+
+        <div class="playerinfo">
+
+            <center><h2>Player info: <%= players.name %> </h2></center>
+            <hr>
+            <p>STEAM ID:&nbsp; <span class="cont"> <%= players.identifier %> </span></p> 
+            <p>LICENSE:  &nbsp;&nbsp;&nbsp;<span class="cont"> <%= players.license %> </span></p> 
+            <p>IP:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="cont"> <%= ip %> </span></p>
+            <form action="/panel/players/edituser/<%= players.identifier %>/<%= user.id %> " method="POST">
+            <p>MONEY: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="money" placeholder="<%= players.money %>" value="<%= players.money %>"></p>            
+            <p>BANK:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name="bank" type="text" placeholder="<%= players.bank %>" value="<%= players.bank %>"></p>   
+            <p>Job:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name="job" type="text" placeholder="<%= players.job %>" value="<%= players.job %>"></p> 
+            <p>Job Grade:&nbsp; <input name="job_grade" type="text" placeholder="<%= players.job_grade %>" value="<%= players.job_grade %>"></p>            
+           
+         
+            GROUP: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="group" id="">
+                
+            <% for (let i = 0; i < groups.length; i++) { %>
+                <% if (players.group === groups[i]) { %>  
+                    <option value="<%= groups[i] %>" selected><%= groups[i] %></option>
+                <% } else { %>
+                    <option value="<%= groups[i] %>"><%= groups[i] %></option>
+                <% } %> 
+            <% } %>
+
+            </select><span class="badge bg-secondary">Only if you are using default groups to ESX or you are allready configure the groups manually in <span>(SOURCE)/settings.json</span></span></h6>
+                
+            <hr>
+            <small>NOTES: pressing the button will remove the player from the server if he is on it to be able to apply changes correctly</small>
+                <br>
+            <button type="submit" class="btn btn-primary">Apply changes</button>
+
+            </form>
+
+        </div>
+
+    <% } %>
+
+</div>
+
+
+<%- include('footer'); -%>

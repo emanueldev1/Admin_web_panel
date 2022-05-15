@@ -1,0 +1,91 @@
+<%- include('header'); -%>
+    <script language="javascript">
+        function doSearch() {
+            const tableReg = document.getElementById('datos');
+            const searchText = document.getElementById('searchTerm').value.toLowerCase();
+            let total = 0;
+
+            // Recorremos todas las filas con contenido de la tabla
+            for (let i = 1; i < tableReg.rows.length; i++) {
+                // Si el td tiene la clase "noSearch" no se busca en su cntenido
+                if (tableReg.rows[i].classList.contains("noSearch")) {
+                    continue;
+                }
+
+                let found = false;
+                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                // Recorremos todas las celdas
+                for (let j = 0; j < cellsOfRow.length && !found; j++) {
+                    const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                    // Buscamos el texto en el contenido de la celda
+                    if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+                        found = true;
+                        total++;
+                    }
+                }
+                if (found) {
+                    tableReg.rows[i].style.display = '';
+                } else {
+                    // si no ha encontrado ninguna coincidencia, esconde la
+                    // fila de la tabla
+                    tableReg.rows[i].style.display = 'none';
+                }
+            }
+
+            // mostramos las coincidencias
+            const lastTR = tableReg.rows[tableReg.rows.length - 1];
+            const td = lastTR.querySelector("td");
+            lastTR.classList.remove("hide", "red");
+            if (searchText == "") {
+                lastTR.classList.add("hide");
+            } else if (total) {
+                td.innerHTML = "Se ha encontrado " + total + " coincidencia" + ((total > 1) ? "s" : "");
+            } else {
+                lastTR.classList.add("red");
+                td.innerHTML = "No se han encontrado coincidencias";
+            }
+        }
+    </script>
+    <div class="content">
+
+        <div style="padding: 3%;">
+            Buscar Jugador <small>Puedes hacerlo por su nombre, identifier, grupo, nombre</small>
+            <form>
+                <input placeholder="Search player" id="searchTerm" type="text" style="color: white; background-color: rgb(46, 46, 46); border-radius: 8px; " onkeyup="doSearch()" />
+            </form>
+            <table class="table table-dark" style="padding: 15px;" id="datos">
+                <thead>
+                    <tr>
+                        <th scope="col">Identifier</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Grupo</th>
+                        <th scope="col">Dinero</th>
+                        <th scope="col">Banco</th>
+                        <th scope="col">View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let i = 0; i < players.length; i++) { %>
+
+                        <tr>
+                            <th scope="row"><%= players[i].identifier %></th>
+                            <td><%= players[i].name %></td>
+                            <td><%= players[i].group %></td>
+                            <td>$<%= players[i].money %></td>
+                            <td>$<%= players[i].bank %></td>
+                            <th class="noSearch"><a class="btn btn-primary" href="/panel/players/view/<%- players[i].identifier %>"> View Player</a></th>
+                        </tr>
+
+                    <% } %> 
+                    <tr class='noSearch hide'>
+                        <td colspan="5"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+
+    <%- include('footer'); -%>
