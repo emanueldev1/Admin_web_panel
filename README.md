@@ -50,17 +50,17 @@ and if you like you can restart the script again
 
 # to add a new user admin
     
-    add discord ID to the user in the admins array 
-    example
+    >add discord ID to the user in the admins array 
+    >example
 
-    before
+    >before
 
     ```json
 
     {"admins": ["discordID"]}
     
     ```
-    after
+    >after
 
     ```json
 
