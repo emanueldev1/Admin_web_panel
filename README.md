@@ -50,21 +50,7 @@ and if you like you can restart the script again
 
 ## To add a new user admin
     
-add discord ID to the user in the admins array 
-example
-
->before:
-
-```json
-{"admins": ["discordID"]}
-
-```
->after
-
-```json
-{"admins": ["discordID", "discordID2"]}
-
-```
+in /panel/settings add the discord id to user to give admin access
 
 ## What is the code is obfuscated?
 
