@@ -23,6 +23,7 @@
     "memorystore": "^1.6.7",
     "mysql": "^2.18.1",
     "node": "^17.7.2",
+    "node-superfetch": "^0.2.3",
     "passport": "^0.5.2",
     "passport-discord": "^0.1.4",
     "path": "^0.12.7",

@@ -638,6 +638,14 @@
   dependencies:
     "whatwg-url" "^5.0.0"
 
+"node-superfetch@^0.2.3":
+  "integrity" "sha512-xOqifvw/3N+tIeeC80/TNJXkoxDZm8JWc7/0VBkJ86ttQTlJvoicuVaeJlKKHYRlmC2O6ygNIhNPwLYX4bxqdA=="
+  "resolved" "https://registry.npmjs.org/node-superfetch/-/node-superfetch-0.2.3.tgz"
+  "version" "0.2.3"
+  dependencies:
+    "form-data" "^4.0.0"
+    "node-fetch" "^2.6.1"
+
 "node@^17.7.2":
   "integrity" "sha512-1hLwQfuA39nUDxCTwKqS8l27E9OEzfAdK5xU4Wcr3h2FrQao6qWNnurgWn4GJn9g6tfHuuupyrBl1lvMLNnecw=="
   "resolved" "https://registry.npmjs.org/node/-/node-17.7.2.tgz"
