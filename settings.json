@@ -1,16 +1,16 @@
 {
     "website": {
-        "support": "https://discord.gg", // Discord server
-        "domain" : "http://localhost" // Change this to your domain and add port if needed
+        "support": "https://discord.gg",
+        "domain" : "http://localhost"
     },
     "config": {
-        "port": 80, // Port to run the server on
-        "callback": "http://localhost/callback", // change localhost to your domain and add port if needed and set callback in discord developer portal
+        "port": 80,
+        "callback": "http://localhost/callback",
         "clientID": "CLIENT_ID_FOR_DISCORD_APP",
         "secret": "SECRET_FOR_DISCORD_APP"
     },
-    "debug": true, // Set to true to see debug messages
+    "debug": true,
 
-    "esx_groups": ["superadmin", "admin", "user"] // List of groups for esx
+    "esx_groups": ["superadmin", "admin", "user"] 
     
 }
