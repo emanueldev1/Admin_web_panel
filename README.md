@@ -37,6 +37,13 @@ first configure settings.json
 
 ## Put script in resources folder and run it 
 
+add in your server.cfg file:
+```
+start Admin_web_panel
+restart Admin_web_panel
+
+```	
+
 then enter your domain and configure the panel with the requested data and restart the server the script
 you will get an error that a table is not found but don't worry as the script inserts it automatically
 and if you like you can restart the script again
