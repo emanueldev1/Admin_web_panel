@@ -48,25 +48,23 @@ then enter your domain and configure the panel with the requested data and resta
 you will get an error that a table is not found but don't worry as the script inserts it automatically
 and if you like you can restart the script again
 
-# to add a new user admin
+## To add a new user admin
     
-    >add discord ID to the user in the admins array 
-    >example
+add discord ID to the user in the admins array 
+example
 
-    >before
+>before:
 
-    ```json
+```json
+{"admins": ["discordID"]}
 
-    {"admins": ["discordID"]}
-    
-    ```
-    >after
+```
+>after
 
-    ```json
+```json
+{"admins": ["discordID", "discordID2"]}
 
-    {"admins": ["discordID", "discordID2"]}
-    
-    ```
+```
 
 ## What is the code is obfuscated?
 
