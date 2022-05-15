@@ -48,7 +48,7 @@ then enter your domain and configure the panel with the requested data and resta
 you will get an error that a table is not found but don't worry as the script inserts it automatically
 and if you like you can restart the script again
 
-## to add a new user admin
+# to add a new user admin
     
     add discord ID to the user in the admins array 
     example
