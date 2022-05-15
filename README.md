@@ -47,3 +47,10 @@ restart Admin_web_panel
 then enter your domain and configure the panel with the requested data and restart the server the script
 you will get an error that a table is not found but don't worry as the script inserts it automatically
 and if you like you can restart the script again
+
+
+
+
+## What is the code is obfuscated?
+
+the code is obfuscated to prevent people from getting the code and use it to hack your server
