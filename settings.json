@@ -11,6 +11,6 @@
     },
     "debug": true,
 
-    "esx_groups": ["superadmin", "admin", "user"] 
+    "esx_groups": ["admin", "user"] 
     
 }
