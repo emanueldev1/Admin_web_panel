@@ -1,0 +1,20 @@
+{
+    "website": {
+        "support": "https://discord.gg",
+        "domain": "http://localhost"
+    },
+    "config": {
+        "port": 80,
+        "callback": "http://localhost/callback",
+        "clientID": "CLIENT_ID_FOR_DISCORD_APP",
+        "secret": "SECRET_FOR_DISCORD_APP"
+    },
+    "debug": true,
+    "esx_groups": [
+        "superadmin",
+        "admin",
+        "user"
+    ],
+    "notwlisted": "No estas en la whitelist porfavor ingresa en xXxXxXxXxXx",
+    "banned": "Estas baneado porfavor ingresa en xXxXxXxXxXx y abre ticket para apelarlo si tienes posibilidad de hacerlo"
+}

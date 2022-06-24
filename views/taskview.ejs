@@ -1,0 +1,117 @@
+<%- include('header'); -%>
+
+<div class="content">
+
+  <% if(error !==false) { %>
+
+
+
+    <h1>Error</h1>
+    <p>
+        <%= error %>
+    </p>
+
+  <% } else { %>
+
+    <script language="javascript">
+        function doSearch() {
+            const tableReg = document.getElementById('datos');
+            const searchText = document.getElementById('searchTerm').value.toLowerCase();
+            let total = 0;
+
+            // Recorremos todas las filas con contenido de la tabla
+            for (let i = 1; i < tableReg.rows.length; i++) {
+                // Si el td tiene la clase "noSearch" no se busca en su cntenido
+                if (tableReg.rows[i].classList.contains("noSearch")) {
+                    continue;
+                }
+
+                let found = false;
+                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                // Recorremos todas las celdas
+                for (let j = 0; j < cellsOfRow.length && !found; j++) {
+                    const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                    // Buscamos el texto en el contenido de la celda
+                    if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+                        found = true;
+                        total++;
+                    }
+                }
+                if (found) {
+                    tableReg.rows[i].style.display = '';
+                } else {
+                    // si no ha encontrado ninguna coincidencia, esconde la
+                    // fila de la tabla
+                    tableReg.rows[i].style.display = 'none';
+                }
+            }
+
+            // mostramos las coincidencias
+            const lastTR = tableReg.rows[tableReg.rows.length - 1];
+            const td = lastTR.querySelector("td");
+            lastTR.classList.remove("hide", "red");
+            if (searchText == "") {
+                lastTR.classList.add("hide");
+            } else if (total) {
+                td.innerHTML = "Se ha encontrado " + total + " coincidencia" + ((total > 1) ? "s" : "");
+            } else {
+                lastTR.classList.add("red");
+                td.innerHTML = "No se han encontrado coincidencias";
+            }
+        }
+    </script>
+    <div style="padding: 3%;">
+        Search:
+        <form>
+            <input placeholder="Search player" id="searchTerm" type="text" style="color: white; background-color: rgb(46, 46, 46); border-radius: 8px; " onkeyup="doSearch()" />
+        </form>
+        <br>
+            <a href="/panel/task/categorys/content/create/<%= catid %> " class="btn btn-primary">Create</a>
+        <br>
+        <table class="table table-dark" style="padding: 15px;" id="datos">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">TimeStamp</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">View</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                function b64EncodeUnicode(str) {
+                    return btoa(encodeURIComponent(str));
+                };
+                
+                function UnicodeDecodeB64(str) {
+                    return decodeURIComponent(atob(str));
+                };
+                for (let i = 0; i < tasks.length; i++) { %>
+                    <tr>
+                        <th scope="row"><%= tasks[i].id %></th>
+                        <td><%= UnicodeDecodeB64(tasks[i].title) %></td>
+                        <td><%= UnicodeDecodeB64(tasks[i].description) %></td>
+                        <td><%= tasks[i].timestamp %> </td>
+                        <td><%= tasks[i].status %></td>
+                        <th class="noSearch"><a class="btn btn-primary" href="/panel/tasks/view/content/<%= tasks[i].id %> "> View Content</a></th>
+                        <th class="noSearch"><a class="btn btn-danger" href="/panel/tasks/delete/<%= tasks[i].id %> "> Delete content</a></th>
+                    </tr>
+                <% } %> 
+                <tr class='noSearch hide'>
+                    <td colspan="5"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+  <% } %>
+
+  <br>
+
+</div>
+
+
+<%- include('footer'); -%>

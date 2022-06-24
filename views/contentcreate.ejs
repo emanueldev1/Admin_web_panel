@@ -1,0 +1,268 @@
+<%- include('header'); -%>
+
+
+<style>
+  .playerinfo {
+    /* display: flex; */
+    padding: 3%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 13px;
+    margin-right: 13px;
+
+    background-color: rgb(63, 63, 63);
+    border-radius: 9px;
+    min-width: 85%;
+    min-height: 100%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  textarea {
+    background-color: rgb(63, 63, 63);
+  }
+
+  span.cont {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(43, 43, 43);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 9px;
+  }
+
+  span.cont:hover {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(57, 57, 57);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  input {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(43, 43, 43);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+
+  }
+
+  input:hover {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(49, 49, 49);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+
+  }
+
+  select {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(43, 43, 43);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+
+  }
+
+  select:hover {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    background-color: rgb(51, 51, 51);
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 10px;
+    transition: all 0.3s;
+
+  }
+</style>
+<link rel="stylesheet" href="/css/easyeditor.css">
+<div class="content">
+
+  <% if(error !==false) { %>
+
+
+
+    <h1>Error</h1>
+    <p>
+        <%= error %>
+    </p>
+
+  <% } else { %>
+
+    <div class="playerinfo">
+
+        <center>
+
+            <h2>Create a content (list or task)</h2>
+        
+        </center>
+        
+        <hr>
+        /panel/task/create/<%= user.id %>
+        <form>
+        
+            <p>Title </p> <input type="text" name="title" placeholder="" value=""> <span class="cont">Max 70 </span>
+            
+            <p>Description</p> <input type="text" name="desc" placeholder="" value=""> <span class="cont">Max 150</span>
+            <br>
+            <p>Content</p>
+            <div id="editor" placeholder="Type here ... "></div>
+            <hr>
+            <br>
+
+            <button id="submit" type="submit" class="btn btn-primary">Apply changes</button>
+
+        </form>
+
+    </div>
+ <% } %>
+
+  <br>
+
+</div>
+
+<script src="/scripts/jquery.min.js"></script>
+<script src="/scripts/jquery.easyeditor.js"></script>
+
+<script>
+  jQuery(document).ready(function($) {
+
+
+    EasyEditor.prototype.image = function(){
+        var _this = this;
+        var settings = {
+            buttonIdentifier: 'insert-image',
+            buttonHtml: 'Insert image',
+            clickHandler: function(){
+                _this.openModal('#easyeditor-modal-1');
+            }
+        };
+
+        _this.injectButton(settings);
+    };
+
+    EasyEditor.prototype.youtube = function(){
+        var _this = this;
+        var settings = {
+            buttonIdentifier: 'insert-youtube-video',
+            buttonHtml: 'Insert youtube video',
+            clickHandler: function(){
+                var youttibeVideoLink = prompt('Insert youtube video link', '');
+                var videoId = _this.getYoutubeVideoIdFromUrl(youttibeVideoLink);
+
+                if(videoId.length > 0) {
+                    var iframe = document.createElement('iframe');
+                    $(iframe).attr({ width: '560', height: '315', frameborder: 0, allowfullscreen: true, src: 'https://www.youtube.com/embed/' + videoId });
+                    _this.insertAtCaret(iframe);
+                }
+                else {
+                    alert('Invalid YouTube URL!');
+                }
+
+            }
+        };
+
+        _this.injectButton(settings);
+    };
+
+
+    jQuery(document).ready(function($) {
+        var easyEditor = new EasyEditor('#editor', {
+            buttons: ['bold', 'italic', 'link', 'h2', 'h3', 'h4', 'alignleft', 'aligncenter', 'alignright', 'quote', 'code', 'image', 'youtube', 'list', 'x']
+        });
+
+        // form uploader starts
+        $loader = $('.easyeditor-modal-content-body-loader');
+        $('.easyeditor-modal-content-body').find('form').ajaxForm({
+            beforeSend: function() {
+                $loader.css('width', '0%');
+            },
+            uploadProgress: function(event, position, total, percentComplete) {
+                $loader.css('width', percentComplete + '%');
+            },
+            success: function() {
+                $loader.css('width', '100%');
+            },
+            complete: function(get) {
+                if(get.responseText != 'null') {
+                    easyEditor.insertHtml('<figure><img src="uploader_sdk/images/'+ get.responseText +'" alt=""></figure>');
+                    easyEditor.closeModal('#easyeditor-modal-1');
+                }
+            }
+        });
+        // form uploader ends
+
+
+        // sticky toolbar
+        var $cache = $('.easyeditor-toolbar');
+        var width = $cache.width();
+        var vTop = $cache.offset().top - parseFloat($cache.css('marginTop').replace(/auto/, 0));
+        $(window).scroll(function (event) {
+            var y = $(this).scrollTop();
+
+            if (y >= vTop) {
+                $cache.addClass('is-fixed').css('width', width + 'px');
+            } else {
+                $cache.removeClass('is-fixed').css('width', 'auto');
+            }
+        });
+
+    });
+      
+  });
+
+  
+</script>
+
+
+<script>
+
+  // if button submit is clicked
+  $('form').submit(function(e) {
+    e.preventDefault();
+    // get the form data
+    // there are many ways to get this data using jQuery (you can use the class or id also)
+    var formData = {
+        'title'  : b64EncodeUnicode($('input[name=title]').val()),
+        'desc'   : b64EncodeUnicode($('input[name=desc]').val()),
+        'content': b64EncodeUnicode($('#editor').html()),
+    };
+
+    // verify the formData is not empty
+    if(formData.title != '' && formData.desc != '' && formData.content != '') {
+      window.location.href = '/panel/task/create/content/<%= catid %>/' + formData.title + '/' + formData.desc + '/' + formData.content;
+
+    }
+    else {
+        alert('Please fill all fields!');
+    }
+
+
+  });
+
+
+
+</script>
+
+<%- include('footer'); -%>

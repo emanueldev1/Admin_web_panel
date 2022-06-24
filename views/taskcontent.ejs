@@ -1,0 +1,67 @@
+<%- include('header'); -%>
+
+
+    <div class="content">
+
+        <%
+        function b64EncodeUnicode(str) {
+            return btoa(encodeURIComponent(str));
+        };
+        
+        function UnicodeDecodeB64(str) {
+            return decodeURIComponent(atob(str));
+        };
+        function UnicodeDecodeB642(str) {
+            return atob(str);
+        }; 
+        
+        %>
+        <center><h3><%= UnicodeDecodeB64(tasks[0].title) %></h3> </center>
+        <center><small><%= UnicodeDecodeB64(tasks[0].description) %></small></center>
+        <hr>
+        <br>
+
+        <div id="content" style="padding: 9px;">
+
+            <%= UnicodeDecodeB642(tasks[0].content) %>
+
+        </div>
+        <br>
+        <hr>
+        <br>
+        <center><%= tasks[0].timestamp %> </center>
+
+        <center>
+
+            <a href="/panel/tasks/content/status/<%= taskid %>/completed" class="btn btn-success">Completed</a>
+            <a href="/panel/tasks/content/status/<%= taskid %>/incomplete " class="btn btn-primary">incomplete</a>
+            <a href="/panel/tasks/content/status/<%= taskid %>/imposible" class="btn btn-warning">Imposible</a>
+            <a href="/panel/tasks/content/status/<%= taskid %>/delete" class="btn btn-danger">delete</a>
+
+        </center>
+        <br>
+        <br>
+        <br>
+    </div>
+
+    <script>
+
+        // obtener lo que esta dentro de el div content
+        var content = document.getElementById("content");
+
+        // obtener el texto
+        var text = content.innerText;
+
+        // convertir el texto a html
+
+        var text2 = decodeURIComponent(text);
+
+        // insertar el texto en el div content
+        document.getElementById("content").innerHTML = text2;
+
+        
+        
+
+    </script>
+
+    <%- include('footer'); -%>
